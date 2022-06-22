@@ -1,14 +1,12 @@
-node('HRMS&&QA') {
-    stage('git') {
-        git 'https://github.com/dummyrepos/game-of-life.git'
+node ('node1'){
+    stage ('scm'){
+        git 'https://github.com/akashvarma43/game-of-life.git'
     }
-    stage('build') {
-        sh 'mvn clean package'
+    stage ('build'){
+        sh 'mvn package'
     }
-    stage('testresults'){
+    stage ('post build'){
         junit 'gameoflife-web/target/surefire-reports/*.xml'
-    }
-    stage('archiveartifacts') {
         archiveArtifacts artifacts: 'gameoflife-web/target/*.war', followSymlinks: false
     }
 }
